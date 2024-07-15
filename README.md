@@ -1,4 +1,10 @@
 # Fyle Backend Challenge
+![image-1](https://github.com/user-attachments/assets/8891d4d7-3109-40da-9a77-d230af7429a2)
+
+![image-2](https://github.com/user-attachments/assets/1fcaf19d-af83-4353-a141-2471508d3eb4)
+![image-3](https://github.com/user-attachments/assets/cc152d91-484d-414b-906a-73cddfc03400)
+
+![image](https://github.com/user-attachments/assets/c40ea047-4a3e-4c98-99f9-10e035fdb5d3)
 
 ## Who is this for?
 
