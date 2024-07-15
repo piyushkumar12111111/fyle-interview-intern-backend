@@ -1,27 +1,29 @@
-from core import db
-from core.libs import helpers
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.sql import func
 
+Base = declarative_base()
 
-class User(db.Model):
+class User(Base):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, db.Sequence('users_id_seq'), primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    created_at = db.Column(db.TIMESTAMP(timezone=True), default=helpers.get_utc_now, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP(timezone=True), default=helpers.get_utc_now, nullable=False, onupdate=helpers.get_utc_now)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(80), unique=True, nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), default=func.now(), nullable=False)
+    updated_at = Column(TIMESTAMP(timezone=True), default=func.now(), nullable=False, onupdate=func.now())
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return f'<User {self.username}>'
 
     @classmethod
-    def filter(cls, *criterion):
-        db_query = db.session.query(cls)
-        return db_query.filter(*criterion)
+    def filter(cls, session, *criterion):
+        return session.query(cls).filter(*criterion)
 
     @classmethod
-    def get_by_id(cls, _id):
-        return cls.filter(cls.id == _id).first()
+    def get_by_id(cls, session, _id):
+        return cls.filter(session, cls.id == _id).first()
 
     @classmethod
-    def get_by_email(cls, email):
-        return cls.filter(cls.email == email).first()
+    def get_by_email(cls, session, email):
+        return cls.filter(session, cls.email == email).first()
