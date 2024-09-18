@@ -92,3 +92,8 @@ class Assignment(db.Model):
     @classmethod
     def get_assignments_by_teacher(cls, teacher_id):
         return cls.filter(cls.teacher_id == teacher_id).all()
+
+
+    @classmethod
+    def get_all_assignments_for_principal(cls):
+        return cls.query.filter(cls.state != AssignmentStateEnum.DRAFT).all()
