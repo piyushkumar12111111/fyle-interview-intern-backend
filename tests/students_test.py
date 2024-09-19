@@ -57,6 +57,36 @@ def test_post_assignment_student_1(client, h_student_1):
     assert data['teacher_id'] is None
 
 
+def test_edit_submitted_assignment_student_1(client, h_student_1):
+    new_content = "NEW CONTENT"
+
+    response = client.post(
+        '/student/assignments',
+        headers=h_student_1,
+        json={
+            'id': 1,
+            'content': new_content
+        })
+
+    assert response.status_code == 400
+
+
+def test_edit_assignment_student_1(client, h_student_1):
+    new_content = "NEW CONTENT"
+
+    response = client.post(
+        '/student/assignments',
+        headers=h_student_1,
+        json={
+            'id': 5,
+            'content': new_content
+        })
+
+    assert response.status_code == 200
+
+    data = response.json['data']
+    data['content'] == new_content
+
 def test_submit_assignment_student_1(client, h_student_1):
     response = client.post(
         '/student/assignments/submit',
