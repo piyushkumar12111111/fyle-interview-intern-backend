@@ -23,7 +23,7 @@ def grade_or_regrade_assigments(p, incoming_payload):
     """Principal Grades Or Regrade An Assignment"""
     assigment_grade_payload =  AssignmentGradeSchema().load(incoming_payload)
 
-    graded_assigment = Assignment.mark_grade(
+    graded_assigment = Assignment.mark_grade_by_principal(
         _id = assigment_grade_payload.id,
         grade = assigment_grade_payload.grade,
         auth_principal=p
